@@ -1,0 +1,16 @@
+plugins {
+  id 'java'
+  id 'com.github.node-gradle.node' version '2.2.1'
+}
+
+node {
+    version = '12.14.1'
+    npmVersion = '6.13.4'
+    download = true
+}
+
+jar.dependsOn 'npm_run_build'
+
+jar {
+    from 'dist/front' into 'static'
+}

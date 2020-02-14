@@ -1,0 +1,3 @@
+rootProject.name = 'tutorial-security'
+
+include 'basic:front', 'basic:back'
