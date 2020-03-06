@@ -1,0 +1,10 @@
+rootProject.name = 'tutorial-security-session'
+
+include 'front', 'back', 'resource'
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
+    }
+}

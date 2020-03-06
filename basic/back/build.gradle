@@ -7,7 +7,7 @@ plugins {
 sourceCompatibility = '1.8'
 
 dependencies {
-    implementation(project(':basic:front'))
+    implementation(project(':front'))
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
