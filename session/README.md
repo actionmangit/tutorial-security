@@ -43,6 +43,8 @@
 
 ## 토큰 인증을 위한 준비
 
+- Security는 직접 Filter구현할 수 있도록 기본 구현을 제공 (예 : AbstractPreAuthenticatedProcessingFilter및 TokenService)
+
 1. back
 
     - Spring Session, Redis 의존성 목록에 추가
@@ -62,7 +64,7 @@
     implementation 'io.lettuce:lettuce-core:5.2.0.RELEASE'
     ~~~
 
-- 2.X로 넘어오면서 redis 클라이언트를 설정할 수 있게 되었는데 (Jedis, Lettuce) Lettuce 가 Asyc 방식으로 퍼포먼스 면에서 더 좋은 선택이다.
+- 2.X로 넘어오면서 redis 클라이언트를 설정할 수 있게 되었는데 (Jedis, Lettuce) Lettuce 가 Asyc 방식으로 퍼포먼스 면에서 더 좋은 선택.
 
 ## 토큰 인증
 
@@ -90,11 +92,9 @@
 
         - resource 서버의 security 설정에 cors 옵션을 추가함(permitAll()의 경우 프리플라이트때 민감한 데이터를 실수로 보낼수가 있어서 안전한 cors()사용)
 
-    - Resource 서버의 Spring Security 옵션 설정
+    - Resource 서버의 Spring Security 옵션 설정(SecurityConfig.java)
 
-        
-
-    - JSESSIONID 를 보는 것이 아니라 X-Auth-Token에서 세션값을 찾도록 로직 수정
+    - JSESSIONID 를 보는 것이 아니라 X-Auth-Token에서 세션값을 찾도록 로직 수정(SessionConfig.java)
 
         ~~~java
         @Bean
@@ -103,5 +103,27 @@
         }
         ~~~
 
+    - lettuce 를 통한 redis 접속을 위한 설정(SessionConfig.java)
 
-4. 
+        ~~~java
+        @Bean
+        public LettuceConnectionFactory connectionFactory() {
+            return new LettuceConnectionFactory();
+        }
+        ~~~
+
+    - 세션 사용하지 않도록 로직 수정
+        - 마이그레이션 필요
+
+        - AS IS
+
+            ~~~yml
+            security:
+                sessions: NEVER
+            ~~~
+
+        - TO BE
+
+            ~~~java
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+            ~~~

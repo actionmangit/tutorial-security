@@ -1,6 +1,6 @@
-rootProject.name = 'tutorial-security-session'
-
-include 'front', 'back', 'resource'
+plugins {
+    id "com.gradle.enterprise" version "3.1.1"
+}
 
 gradleEnterprise {
     buildScan {
@@ -8,3 +8,7 @@ gradleEnterprise {
         termsOfServiceAgree = 'yes'
     }
 }
+
+rootProject.name = 'tutorial-security-session'
+
+include 'front', 'back', 'resource'
