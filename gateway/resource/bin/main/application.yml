@@ -2,6 +2,13 @@ spring:
   security:
     user:
       password: 1234
-
+  session:
+    store-type: redis      
 server:
+  address: 127.0.0.1
   port: 9000
+logging:
+  level:
+    org.springframework:
+      security: DEBUG
+      session: TRACE  

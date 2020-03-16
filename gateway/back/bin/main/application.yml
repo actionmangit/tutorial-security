@@ -2,3 +2,21 @@ spring:
   security:
     user:
       password: 1234
+  session:
+    store-type: redis
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+      url: http://127.0.0.1:9000      
+      sensitive-headers:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    org.springframework:
+      security: DEBUG
+      session: TRACE
