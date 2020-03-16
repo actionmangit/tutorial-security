@@ -1,4 +1,4 @@
-# Session
+# Gateway
 
 ## 실행 방법
 
