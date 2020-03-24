@@ -1,0 +1,21 @@
+spring:
+  security:
+    user:
+      password: 1234
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      authorized-grant-types: authorization_code, refresh_token, password
+      scope: openid
+      registered-redirect-uri: http://example.com
+server:
+  port: 9999
+  servlet:
+    context-path: /uaa
+logging:
+  level:
+    org.springframework:
+      security: DEBUG
+      session: TRACE

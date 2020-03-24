@@ -1,0 +1,3 @@
+rootProject.name = 'tutorial-security-oauth2'
+
+include 'front', 'back', 'resource', 'auth'

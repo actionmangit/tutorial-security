@@ -1,0 +1,27 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+sourceCompatibility = '1.8'
+
+dependencies {
+
+    implementation(project(':front'))
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.session:spring-session-data-redis:2.2.1.RELEASE'
+    implementation 'io.lettuce:lettuce-core:5.2.0.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.1.RELEASE'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+	useJUnitPlatform()
+}
