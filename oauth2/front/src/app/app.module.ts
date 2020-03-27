@@ -4,14 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppService } from './app.service';
-import { HomeComponent } from './home.component';
-import { LoginComponent } from './login.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'home'},
-    { path: 'home', component: HomeComponent},
-    { path: 'login', component: LoginComponent}
+    { path: '', pathMatch: 'full', redirectTo: 'home'}
 ];
 
 @Injectable()
@@ -27,9 +23,7 @@ export class XhrInterceptor implements HttpInterceptor {
 
 @NgModule({
     declarations: [
-        AppComponent,
-        HomeComponent,
-        LoginComponent
+        AppComponent
     ],
     imports: [
         RouterModule.forRoot(routes),

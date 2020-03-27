@@ -82,7 +82,7 @@
 
      - curl acme:acmesecret@localhost:9999/uaa/oauth/token \
         -d grant_type=authorization_code -d client_id=acme \
-        -d redirect_uri=http://example.com -d code=2V2DQf
+        -d redirect_uri=http://example.com -d code=Ro55aW
 
      ```json
      {
@@ -103,11 +103,55 @@
 
 1. resource
 
+   - 원래는 Spring Security 5.3을 이용해 구현하려고 하였다. 하지만 기존 Spring Security OAuth와 다른점이 많았다. 첫째는 Resource 서버와 Client의 경우 완성이 되었으나 Authorization 서버는 완성되지 않아 서로간의 합이 맞지 않는 점이 있었다. (예: Resource 서버에서 토큰의 인증이 필요로 하게 되었는데(introspection) Spring Security OAuth에는 없어서 커스텀 구현을 해야함). 둘째는 현재 완성중이다 보니 샘플부분이 확연히 부족했다.
+
    - 종속성 설정
 
    ```groovy
    implementation 'org.springframework.security.oauth:spring-security-oauth2'
    ```
+
+   - 어노테이션 추가
+
+   ```java
+   @EnableResourceServer
+   ```
+
+   - yml 설정
+
+   ```yml
+   security:
+     oauth2:
+       resource:
+         userInfoUri: http://localhost:9999/uaa/userinfo
+   ```
+
+   - userinfo는 resource 서버를 연결하여 token 디코딩하는 유일한 방법은 아니다. 하지만 OAuth provider 들이 많이 쓰고 있는 방법이다. 다른 방법도 있는데 JWT나 backend Store를 이용할 수도 있다. token_info endpoint를  사용하면 더 자세한 정보를 얻을 수 있는데 그만큼 더 철저한 인증이 필요하다.
+
+2. auth
+   - 어노테이션 추가
+
+   ```java
+   @EnableResourceServer
+   ```
+
+   - 해당 어노테이션 사용시 "/ oauth / *"엔드 포인트를 제외한 Authorization 서버의 모든 것을 보호함.
+
+3. back
+   - back 계층에서 Zuul을 사용하기 때문에 spring-cloud-starter-oauth2대신 spring-security-oauth2프록시를 통해 토큰을 릴레이하기위한 자동 구성을 설정.
+
+   - 종속성 설정
+
+   ```groovy
+   implementation 'org.springframework.security.oauth:spring-security-oauth2'
+   ```
+
+   - 어노테이션 추가
+
+   ```java
+   @EnableOAuth2Sso
+   ```
+
 
 2. front
 

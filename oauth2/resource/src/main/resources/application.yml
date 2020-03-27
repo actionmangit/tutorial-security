@@ -2,10 +2,10 @@ spring:
   security:
     user:
       password: 1234
-    oauth2:
-      client:
-        registration:
-          userInfoUri: http://localhost:9999/uaa/user
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:9999/uaa/userinfo
 server:
   address: 127.0.0.1
   port: 9000
@@ -13,4 +13,4 @@ logging:
   level:
     org.springframework:
       security: DEBUG
-      session: TRACE  
+      session: TRACE

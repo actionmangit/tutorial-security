@@ -2,13 +2,29 @@ spring:
   security:
     user:
       password: 1234
-  session:
-    store-type: redis
+    oauth2:
+      client:
+        registration:
+          auth:
+            provider: auth
+            client-id: acme
+            client-secret: acmesecret
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080
+        provider:
+          auth:
+            user-info-uri: http://localhost:9999/uaa/user
+            token-uri: http://localhost:9999/uaa/oauth/token
+            authorization-uri: http://localhost:9999/uaa/oauth/authorize
 zuul:
   routes:
     resource:
       path: /resource/**
-      url: http://127.0.0.1:9000      
+      url: http://127.0.0.1:9000
+      sensitive-headers:
+    user:
+      path: /user/**
+      url: http://localhost:9999/uaa/user
       sensitive-headers:
 management:
   endpoints:

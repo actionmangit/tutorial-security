@@ -9,7 +9,7 @@ security:
       client-secret: acmesecret
       authorized-grant-types: authorization_code, refresh_token, password
       scope: openid
-      registered-redirect-uri: http://example.com
+      registered-redirect-uri: http://localhost:8080
 server:
   port: 9999
   servlet:
